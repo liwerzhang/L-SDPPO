@@ -1,0 +1,48 @@
+swanlab: swanlab version 0.7.3 is available!  Upgrade: `pip install -U swanlab`
+swanlab: Tracking run with swanlab version 0.6.8
+swanlab: Run data will be saved locally in /home/liwenzhang/Downloads/snndppo/swanlog/run-20251206_201506-y7ecl8m24whl0ob24ifui
+swanlab: 👋 Hi liwen318,welcome to swanlab!
+swanlab: Syncing run 20-15-03_can_pre_diffusion_snn_ta4_td20 to the cloud
+swanlab: 🏠 View project at https://swanlab.cn/@liwen318/robomimic-can-pretrain
+swanlab: 🚀 View run at https://swanlab.cn/@liwen318/robomimic-can-pretrain/runs/y7ecl8m24whl0ob24ifui
+Error executing job with overrides: []
+swanlab: Error happened while training
+swanlab: 🏠 View project at https://swanlab.cn/@liwen318/robomimic-can-pretrain
+swanlab: 🚀 View run at https://swanlab.cn/@liwen318/robomimic-can-pretrain/runs/y7ecl8m24whl0ob24ifui
+  File "/home/liwenzhang/Downloads/snndppo/script/run.py", line 92, in <module>
+    main()
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/utils.py", line 223, in run_and_report
+    raise ex
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 132, in run
+    _ = ret.return_value
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/core/utils.py", line 260, in return_value
+    raise self._return_value
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/home/liwenzhang/Downloads/snndppo/script/run.py", line 87, in main
+    agent = cls(cfg) #cls(cfg) 构造实例
+  File "/home/liwenzhang/Downloads/snndppo/agent/pretrain/train_diffusion_agent.py", line 20, in __init__
+    super().__init__(cfg)
+  File "/home/liwenzhang/Downloads/snndppo/agent/pretrain/train_agent.py", line 81, in __init__
+    self.model = hydra.utils.instantiate(cfg.model)
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
+    value = instantiate_node(
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+  File "/home/liwenzhang/anaconda3/envs/dpporobomimic/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
+    raise InstantiationException(msg) from e
+Error in call to target 'model.diffusion.snn_diffusion.DiffusionSNN':
+AssertionError()
+full_key: model.network

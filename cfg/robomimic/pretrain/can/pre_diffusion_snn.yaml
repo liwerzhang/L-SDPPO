@@ -1,0 +1,150 @@
+#defaults:
+#  - _self_
+#hydra:
+#  run:
+#    dir: ${logdir}
+#_target_: agent.pretrain.train_diffusion_agent.TrainDiffusionAgent
+#
+#name: ${env}_pre_diffusion_snn_ta${horizon_steps}_td${denoising_steps}
+#logdir: ${oc.env:DPPO_LOG_DIR}/robomimic-pretrain/${name}/${now:%Y-%m-%d}_${now:%H-%M-%S}_${seed}
+#train_dataset_path: ${oc.env:DPPO_DATA_DIR}/robomimic/${env}/train.npz
+#
+#seed: 42
+#device: cuda:0
+#env: can
+#obs_dim: 23
+#action_dim: 7
+#denoising_steps: 20
+#horizon_steps: 4
+#cond_steps: 1
+#
+#snn_T: 8                       # 从 4 提到 8（时间平均更平滑）
+#snn_beta: 0.90                 # 衰减略强，避免“记忆化”造成脉冲卡阈值
+#snn_readout: "mem_sum"         # 用膜电位求和的只读头（更稳）
+#snn_use_layernorm: True        # 每层加 LN；square 对归一化很敏感
+#snn_use_layernorm_final: True  # 读出前再做一次 LN
+#
+#wandb:
+#  entity: ${oc.env:DPPO_WANDB_ENTITY}
+#  project: robomimic-${env}-pretrain
+#  run: ${now:%H-%M-%S}_${name}
+#
+#train:
+#  n_epochs: 3000
+#  batch_size: 256
+#  learning_rate: 1e-4
+#  weight_decay: 1e-6
+#  lr_scheduler:
+#    first_cycle_steps: 3000
+#    warmup_steps: 100
+#    min_lr: 1e-5
+#  save_model_freq: 500
+#
+#model:
+#  _target_: model.diffusion.diffusion.DiffusionModel
+#  predict_epsilon: True
+#  denoised_clip_value: 1.0
+#  network:
+#    _target_: model.diffusion.snn_diffusion.DiffusionSNN
+#    time_dim: 32
+#    mlp_dims: [512,1024,512]
+#    cond_mlp_dims: [128, 64]
+#    residual_style: True
+#    cond_dim: ${eval:'${obs_dim} * ${cond_steps}'}
+#    horizon_steps: ${horizon_steps}
+#    action_dim: ${action_dim}
+#  horizon_steps: ${horizon_steps}
+#  obs_dim: ${obs_dim}
+#  action_dim: ${action_dim}
+#  denoising_steps: ${denoising_steps}
+#  device: ${device}
+#
+#ema:
+#  decay: 0.995
+#
+#train_dataset:
+#  _target_: agent.dataset.sequence.StitchedSequenceDataset
+#  dataset_path: ${train_dataset_path}
+#  horizon_steps: ${horizon_steps}
+#  cond_steps: ${cond_steps}
+#  device: ${device}
+#
+
+
+###################20251211新改: 真的改成使用了snn_T;snn_beta;snn_readout;snn_use_layernorm;snn_use_layernorm_final 这些参数
+defaults:
+  - _self_
+hydra:
+  run:
+    dir: ${logdir}
+_target_: agent.pretrain.train_diffusion_agent.TrainDiffusionAgent
+
+name: ${env}_pre_diffusion_snn_ta${horizon_steps}_td${denoising_steps}
+logdir: ${oc.env:DPPO_LOG_DIR}/robomimic-pretrain/${name}/${now:%Y-%m-%d}_${now:%H-%M-%S}_${seed}
+train_dataset_path: ${oc.env:DPPO_DATA_DIR}/robomimic/${env}/train.npz
+
+seed: 42
+device: cuda:1
+env: can
+obs_dim: 23
+action_dim: 7
+denoising_steps: 20
+horizon_steps: 4
+cond_steps: 1
+
+#snn_T: 8                       # 从 4 提到 8（时间平均更平滑）
+#snn_beta: 0.90                 # 衰减略强，避免“记忆化”造成脉冲卡阈值
+#snn_readout: "mem_sum"         # 用膜电位求和的只读头（更稳）
+#snn_use_layernorm: True        # 每层加 LN；square 对归一化很敏感
+#snn_use_layernorm_final: True  # 读出前再做一次 LN
+
+wandb:
+  entity: ${oc.env:DPPO_WANDB_ENTITY}
+  project: robomimic-${env}-pretrain
+  run: ${now:%H-%M-%S}_${name}
+
+train:
+  n_epochs: 3000
+  batch_size: 256
+  learning_rate: 1e-4
+  weight_decay: 1e-6
+  lr_scheduler:
+    first_cycle_steps: 3000
+    warmup_steps: 100
+    min_lr: 1e-5
+  save_model_freq: 500
+
+model:
+  _target_: model.diffusion.diffusion.DiffusionModel
+  predict_epsilon: True
+  denoised_clip_value: 1.0
+  network:
+    _target_: model.diffusion.snn_diffusion.DiffusionSNN
+    time_dim: 32
+    mlp_dims: [3072,3072]
+    cond_mlp_dims: [512,64]
+    residual_style: False
+    cond_dim: ${eval:'${obs_dim} * ${cond_steps}'}
+    horizon_steps: ${horizon_steps}
+    action_dim: ${action_dim}
+#    snn_T: ${snn_T}                                # <--- 传递顶层的 8
+#    snn_beta: ${snn_beta}                          # <--- 传递顶层的 0.90
+#    snn_readout: ${snn_readout}                    # <--- 传递顶层的 "mem_sum"
+#    snn_use_layernorm: ${snn_use_layernorm}        # <--- 传递顶层的 True
+#    snn_use_layernorm_final: ${snn_use_layernorm_final} # <--- 传递顶层的 True
+  horizon_steps: ${horizon_steps}
+  obs_dim: ${obs_dim}
+  action_dim: ${action_dim}
+  denoising_steps: ${denoising_steps}
+  device: ${device}
+
+ema:
+  decay: 0.995
+
+train_dataset:
+  _target_: agent.dataset.sequence.StitchedSequenceDataset
+  dataset_path: ${train_dataset_path}
+  horizon_steps: ${horizon_steps}
+  cond_steps: ${cond_steps}
+  device: ${device}
+
