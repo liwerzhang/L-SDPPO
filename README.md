@@ -1,6 +1,8 @@
 
 ```markdown
 # L-SDPPO: Policy Optimization of Spiking Diffusion Models for  Intra-vehicular Robotic Manipulation
+### 🎬 Supplementary Video
+The experimental results and comparisons are available in the [Supplementary Video](./assets/demo_video.mp4).
 
 [![Double-Blind](https://img.shields.io/badge/Review-Double_Blind-blue.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -8,16 +10,16 @@
 > **Note**: This repository contains the official anonymous code for the paper "L-SPPO: A Proficient and Energy-Economical Spiking Diffusion Policy for Microgravity Manipulation" currently under double-blind review for IEEE Robotics and Automation Letters (RA-L).
 
 ## 🚀 Overview
+Intra-vehicular robots (IVRs) are essential for assisting astronauts in microgravity environments. We introduce **L-SDPPO**, a spiking diffusion policy framework that achieves a **97% success rate** with only **36.45% energy consumption** of traditional models.
 
-Intra-vehicular robots (IVRs) are essential for assisting astronauts in microgravity environments. [cite_start]However, traditional diffusion policies require iterative sampling processes that consume excessive energy, making them unsuitable for the strict power budgets of spacecraft. [cite: 6, 54]
+### 🤖 Representative Tasks (Task I - V)
 
-We introduce the **Spiking Diffusion Policy Optimization with State-Dependent Latency Injection (L-SDPPO)** framework. [cite_start]It parameterizes the generative denoising process using an energy-efficient **Spiking Neural Network (SNN)** backbone. [cite: 56, 106]
+| Task I: Hatch Opening | Task III: Precision Capping | Task V: Long-horizon Stowing |
+| :---: | :---: | :---: |
+| ![Hatch Opening](./assets/door.gif) | ![Precision Capping](./assets/onlypicklid.gif) | ![Long-horizon Stowing](./assets/drawer.gif) |
+| *Rotating handle to unlock* | *Precise spatial alignment* | *Multi-step planning* |
 
-**Key Features:**
-* **Asymmetric Architecture:** To ensure training stability while maximizing energy efficiency, our Proximal Policy Optimization (PPO) algorithm utilizes an asymmetric Actor-Critic architecture: the **Actor** network is constructed using Spiking Neural Networks (SNN), while the **Critic** network remains a traditional Artificial Neural Network (ANN).
-* [cite_start]**State-Dependent Latency Injection (SDLI):** Mimics biological neural delays to regulate the timing of input information, significantly enhancing temporal feature perception. [cite: 10, 57]
-* [cite_start]**Extreme Energy Efficiency:** Limits inference energy consumption to approximately 36.45% of traditional continuous diffusion models, evaluated via 45nm CMOS theoretical models. [cite: 422, 547]
-
+> **Note**: Our method consistently outperforms traditional DP and behavior cloning across all tasks, especially in handling unconstrained drift in microgravity.
 ## 🛠️ Installation 
 
 1. Clone the repository:
