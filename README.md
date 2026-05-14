@@ -47,17 +47,16 @@ source script/set_path.sh
 
 ## 🎮 Evaluated Microgravity Tasks
 
-[cite_start]The framework is rigorously evaluated across five distinct space cabin simulation scenarios: [cite: 65, 180]
+[cite_start]The framework is rigorously evaluated across five distinct space cabin simulation scenarios: 
 
-* [cite_start]**Task I:** Constrained Hatch Actuation [cite: 288]
-* [cite_start]**Task II:** Dynamic Tumbling Target Stowing (Box) [cite: 290]
-* [cite_start]**Task III:** Precision Container Capping (Box Closing) [cite: 290]
-* [cite_start]**Task IV:** Sequential Panel Operation (Workbench Operation) [cite: 292]
-* [cite_start]**Task V:** Long-horizon Drawer-based Stowing [cite: 293, 295]
-
+* [cite_start]**Task I:** Constrained Hatch Actuation 
+* [cite_start]**Task II:** Dynamic Tumbling Target Stowing (Box) 
+* [cite_start]**Task III:** Precision Container Capping (Box Closing) 
+* [cite_start]**Task IV:** Sequential Panel Operation (Workbench Operation)
+* [cite_start]**Task V:** Long-horizon Drawer-based Stowing 
 ## 💻 Usage - Pre-training
 
-[cite_start]To pre-train the Spiking Diffusion Policy on the expert dataset via Behavior Cloning (MSE Loss): [cite: 180]
+[cite_start]To pre-train the Spiking Diffusion Policy on the expert dataset via Behavior Cloning (MSE Loss): 
 
 ```bash
 # Example: Task V (Drawer-based Stowing)
@@ -67,7 +66,7 @@ python script/run.py --config-name=pre_snn_diffusion \
 
 ## 📈 Usage - Fine-tuning (RL with PPO)
 
-[cite_start]To fine-tune the pre-trained SNN policy using PPO and the SDLI mechanism: [cite: 181, 243]
+[cite_start]To fine-tune the pre-trained SNN policy using PPO and the SDLI mechanism: 
 
 ```bash
 # Example: Task III (Box Closing)
@@ -78,7 +77,7 @@ python script/run.py --config-name=ft_ppo_diffusion_snn \
 
 ## 📊 Evaluation
 
-[cite_start]To evaluate a trained policy (either pre-trained or fine-tuned) and compute the Success Rate (SR) and Average Reward (AR): [cite: 280, 281]
+[cite_start]To evaluate a trained policy (either pre-trained or fine-tuned) and compute the Success Rate (SR) and Average Reward (AR): 
 
 ```bash
 python script/run.py \
